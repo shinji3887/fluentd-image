@@ -27,6 +27,9 @@ COPY clean-apt /usr/bin
 COPY clean-install /usr/bin
 COPY Gemfile /Gemfile
 
+RUN chmod 755 /usr/bin/clean-install
+RUN chmod 755 /usr/bin/clean-apt
+
 # 1. Install & configure dependencies.
 # 2. Install fluentd via ruby.
 # 3. Remove build dependencies.
@@ -48,6 +51,8 @@ RUN BUILD_DEPS="make gcc g++ libc6-dev ruby-dev libffi-dev" \
 # Copy the Fluentd configuration file for logging Docker container logs.
 COPY fluent.conf /etc/fluent/fluent.conf
 COPY run.sh /run.sh
+
+RUN chmod 755 run.sh
 
 # Expose prometheus metrics.
 EXPOSE 80
